@@ -1,0 +1,30 @@
+{
+  "name": "pg-highlighter",
+  "displayName": "PostgreSQL Template Literal Syntax Highlighting",
+  "description": "Syntax highlighting for SQL tagged template literals",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "grammars": [
+      {
+        "path": "./syntaxes/pg-highlighter.tmLanguage.json",
+        "scopeName": "inline.tagged-template-sql",
+        "injectTo": [
+          "source.ts"
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^2.15.0"
+  }
+}

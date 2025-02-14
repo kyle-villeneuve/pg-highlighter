@@ -1,0 +1,52 @@
+{
+  "scopeName": "inline.tagged-template-sql",
+  "injectionSelector": "L:source -comment -string",
+  "patterns": [
+    {
+      "name": "string.template.ts",
+      "begin": "(?:([_$[:alpha:]][_$[:alnum:]]*)\\s*\\.)?(sql\\(\\w+\\)|sql|sqlFragment|select|where|joinAnd|join|groupBy|orderBy)\\s*(?=(<|`))",
+      "beginCaptures": {
+        "1": { "name": "variable.other.object.ts" },
+        "2": { "name": "entity.name.function.tagged-template.ts" }
+      },
+      "end": "(?<=`)",
+      "patterns": [
+        {
+          "begin": "<",
+          "end": ">",
+          "patterns": [
+            {
+              "include": "source.ts#type"
+            }
+          ]
+        },
+        {
+          "include": "#embedded-sql"
+        }
+      ]
+    }
+  ],
+  "repository": {
+    "embedded-sql": {
+      "name": "string.template.ts",
+      "contentName": "meta.embedded.block.sql",
+      "begin": "`",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.string.template.begin.js" }
+      },
+      "end": "`",
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.string.template.end.js" }
+      },
+      "patterns": [
+        {
+          "match": "\\s*(>=|<=|!=|=|>|<)\\s*(?=\\$|[\\w'])",
+          "name": "string.regexp.sql"
+        },
+        { "include": "source.plpgsql.postgres" },
+        { "include": "source.ts#template-substitution-element" },
+        { "include": "source.sql" }
+      ]
+    }
+  }
+}
