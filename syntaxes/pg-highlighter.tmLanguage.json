@@ -4,7 +4,7 @@
   "patterns": [
     {
       "name": "string.template.ts",
-      "begin": "(?:([_$[:alpha:]][_$[:alnum:]]*)\\s*\\.)?(sql\\(\\w+\\)|sql|sqlFragment|select|where|joinAnd|join|groupBy|orderBy)\\s*(?=(<|`))",
+      "begin": "(?:([_$[:alpha:]][_$[:alnum:]]*)\\s*\\.)?(sql\\(\\w+\\)|sql|sqlFragment|select|where|joinAnd|join|groupBy|orderBy|when)\\s*(?=(<|`))",
       "beginCaptures": {
         "1": { "name": "variable.other.object.ts" },
         "2": { "name": "entity.name.function.tagged-template.ts" }

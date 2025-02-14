@@ -6,16 +6,17 @@ This VSCode plugin provides syntax highlighting for SQL template literals in Typ
 
 The following template literal tags are recognized:
 
-- `sql(client)`
-- `sql<T>(client)`
-- `sql`
-- `sqlFragment`
-- `select`
-- `where`
-- `joinAnd`
-- `join`
-- `groupBy`
-- `orderBy`
+- ` sql(client)``  `
+- ` sql<T>(client)``  `
+- ` sql``  `
+- ` sqlFragment``  `
+- ` select``  `
+- ` where``  `
+- ` joinAnd``  `
+- ` join``  `
+- ` groupBy``  `
+- ` orderBy``  `
+- ` when``  `
 
 ## Usage Examples
 
@@ -32,8 +33,25 @@ builder.sql`SELECT * FROM users`;
 // Other supported tags
 builder.select`id, name FROM users`;
 builder.where`age > 18`;
+
 builder.join`LEFT JOIN orders ON users.id = orders.user_id`;
+builder.joinAnd`orders.company_id = ${123}`;
+
 builder.orderBy`field DESC`;
+
+sqlFragment`AND users.id = ${123}`
+
+Raw.sql`table.column`
+
+// case statement expressions
+new Case()
+  .when`table1.col = ${search} THEN 1`
+  .when`table1.col LIKE ${search} || '%' THEN 0.9`
+  .when`table2.col = ${search} THEN 1`
+  .when`table2.col ILIKE ${search} || '%' THEN 0.9`
+  .when`table3.col ILIKE ${search} || '%' THEN 0.8`
+  .else`ts_rank_cd(table3.col2, plainto_tsquery('english', ${search}))`
+.as('similarity'),
 ```
 
 ## Syntax Highlighting Rules
